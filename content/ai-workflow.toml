@@ -1,6 +1,6 @@
 type = "guide"
 title = "How I work with AI"
-description = "Claude Code is my main tool for research and for building software. Here is how I use it, in outline."
+description = "Claude Code is my main tool for research and for building software. These are the habits that have saved me the most time, written so you can try them yourself."
 
 [[links]]
 label = "Templates on GitHub"
@@ -11,223 +11,146 @@ href = "https://github.com/jackyyangjq/ai-research-workflow"
 # Icons: messages, eye, target, key, clipboard, bot, shield, board.
 
 [[sections]]
-id = "vibe-coding"
-nav = "Vibe coding"
-title = "Vibe coding"
-lead = "Describing software in plain language and letting an AI coding agent write the code. I decide what gets built and how to check it."
-examples_title = "Built this way"
+id = "questions-first"
+nav = "Questions first"
+title = "Let it ask the questions first"
+lead = "Most of the time I lose with an AI agent comes from letting it start too early. Before any code or text is written, have it interview you, then choose from a short list of options."
+examples_title = "Small tools I built this way"
 
 [[sections.tiles]]
 icon = "messages"
-title = "Spec first"
-body = "The agent interviews me before any code, and my answers become the spec."
+title = "Ask to be interviewed"
+body = "Start with: “Don't write anything yet. First ask me the questions you need answered.” Your answers become the spec."
+
+[[sections.tiles]]
+icon = "clipboard"
+title = "Pick from a list"
+body = "Ask for three ways to do it and what each one costs. Choosing from a list is quicker than correcting a draft you never wanted."
 
 [[sections.tiles]]
 icon = "eye"
-title = "Check every step"
-body = "After each change I run the app or the numbers, rather than trusting code that reads well."
-
-[[sections.tiles]]
-icon = "target"
-title = "Known answers"
-body = "Methods are tested on simulated data with a known effect, and LLM labels against a second model."
-
-[[sections.tiles]]
-icon = "key"
-title = "Secrets stay local"
-body = "API keys stay out of git, and I read every public repository before it goes out."
+title = "Look at the result"
+body = "After each change, run the app or open the table. Code that reads well can still give the wrong answer."
 
 [[sections.examples]]
 label = "Calorie tracker"
 href = "https://jackyyangjq.github.io/caltrk/"
-note = "Web app that reads food photos with a vision model. 20 versions in seven weeks."
+note = "A web app that reads food photos with a vision model."
 
 [[sections.examples]]
 label = "Finfluencer digest"
 href = "https://github.com/jackyyangjq/finfluencer-digest"
-note = "Runs every morning on GitHub Actions and sums up stock calls from finance channels."
+note = "Summarises the stock calls made on finance channels each morning."
 
 [[sections.examples]]
 label = "Filings Q&A agent"
 href = "https://github.com/jackyyangjq/filings-qa-agent"
-note = "Answers questions about SEC filings with a source for every sentence."
-
-[[sections.examples]]
-label = "Open-source fixes"
-href = "/projects"
-note = "A merged fix to ClaudeCodeUsage and four pull requests to a portfolio dashboard."
+note = "Answers questions about SEC filings and cites a source for every sentence."
 
 [[sections]]
-id = "research"
-nav = "A research paper"
-title = "A paper from question to submission"
-lead = "A working paper on generative AI and tourism jobs. Claude Code worked on every stage and I kept the decisions. Results and data details stay off this page until the paper is published."
-timeline_labels = ["AI", "Me"]
-callout = "The AI shock arrived while in-person services were still recovering from the pandemic. Comparing tourism with other service industries keeps the two apart."
+id = "commands"
+nav = "Four commands"
+title = "Four commands worth learning"
+lead = "Beyond ordinary chat, these are the commands I use most. All four work in the terminal, and /btw, /doctor and /effort also work in the desktop app. Click one to see how to use it."
+fix_label = "Use it when"
 
-[[sections.timeline]]
-stage = "Question and literature"
-ai = "Searches the literature, summarises papers and checks whether a term I plan to use already means something else in the field."
-me = "The question and what the paper adds."
+[[sections.folds]]
+title = "/btw"
+fix = "you want to ask something quick while Claude is still working."
+body = "Type /btw and your question. It can see the conversation so far, answers in a small window, and the main task keeps running. The question is not added to the conversation, so it does not affect the main task. It cannot open files or run commands, so ask about what has already happened, for example “which file did you just change, and why?” In the desktop app it is called side chat, and on a Mac you open it with Cmd+;."
 
-[[sections.timeline]]
-stage = "Design"
-ai = "Drafts alternative designs and lists the threats to each."
-me = "The identification strategy."
+[[sections.folds]]
+title = "/doctor"
+fix = "Claude starts ignoring one of your rules, or you have installed many plugins and skills."
+body = "It checks your installation, unused extensions and your rules files, and reports before changing anything. Newer versions add /doctor prompt-audit, which looks for instructions that contradict each other or are out of date. The first time I ran it, it found 17 problems, several of them pairs of rules that contradicted each other. Read the report, decide which of the conflicting rules to keep, and only then let it make the changes."
 
-[[sections.timeline]]
-stage = "Data and code"
-ai = "Writes the scripts and re-estimates the main results a second, independent way."
-me = "Definitions, the sample, and what a result must survive before I trust it."
+[[sections.folds]]
+title = "/effort"
+fix = "the work moves from planning to checking."
+body = "It sets how hard the model thinks before it answers. My rule is low effort while deciding what to do, and high effort when the result has to be right, such as debugging an estimate that looks wrong or reviewing code that handles passwords and keys. If the plan itself is wrong, more effort will not save it, so go back to the questions."
 
-[[sections.timeline]]
-stage = "Writing"
-ai = "Drafts sections from my outline, following a style guide and a fixed glossary."
-me = "The argument and every claim."
-
-[[sections.timeline]]
-stage = "Revision"
-ai = "Turns supervisor comments into task cards; a fresh session audits each change."
-me = "Which comments to act on, and how."
-
-[[sections.timeline]]
-stage = "Submission"
-ai = "Builds the journal's Word files and traces every number back to a script."
-me = "The final read and the AI-use statement."
+[[sections.folds]]
+title = "/rewind"
+fix = "Claude has gone in the wrong direction and you want to go back."
+body = "With the prompt box empty, press Esc twice, or type /rewind, and choose an earlier message. You can restore the code, the conversation, or both. It does not undo changes to files that only shell commands touched, so keep using Git for anything that matters."
 
 [[sections]]
-id = "effort"
-nav = "Effort levels"
-title = "Matching effort to the task"
-lead = "With Claude Opus 5.5, Claude Code lets me set how hard the model thinks and checks before it answers. I switch it several times on one task: low while we work out what to do, high when the result needs checking. More effort catches edge cases; it does not fix a wrong approach."
-steps_style = "pills"
-level_labels = ["In research", "In web coding"]
-default_level = 1
-note = "Adapted for research and web work from Thariq Shihipar, [“Using Claude Code: Spending your effort”](https://claude.dev/blog/spending-your-effort/) (September 2026)."
-
-[[sections.steps]]
-title = "Interview"
-label = "low effort"
-
-[[sections.steps]]
-title = "Build"
-label = "low or medium"
-
-[[sections.steps]]
-title = "Review"
-label = "by me"
-
-[[sections.steps]]
-title = "Verify"
-label = "high effort"
-
-[[sections.levels]]
-name = "Low"
-research = "Brainstorming questions; reformatting tables and references."
-web = "Copy and style changes, small fixes."
-
-[[sections.levels]]
-name = "Medium"
-research = "Drafting a section from my outline; a cleaning script or a figure built to a clear spec."
-web = "A feature built to a clear spec."
-
-[[sections.levels]]
-name = "High"
-research = "Debugging an estimate that looks wrong; the pre-submission audit that traces every number to code."
-web = "Debugging and code review; anything that touches keys or user data."
-
-[[sections.levels]]
-name = "Max"
-research = "Long unattended jobs with a clear finish line, such as replicating a full analysis with checks."
-web = "Building and testing an app end to end; a security review."
-
-[[sections]]
-id = "project-management"
-nav = "Project management"
-title = "Running a project with a team of AI sessions"
-lead = "A paper outgrows a single chat, so I run it like a small team."
+id = "sessions"
+nav = "One paper, many sessions"
+title = "One paper, many sessions"
+lead = "A paper takes months, which is far too long for one chat. I organise it the way a small team would: one session plans, other sessions do the work, and a fresh one checks it. Progress is kept in files, so nothing is lost when a session ends."
 steps_style = "flow"
-callout = "Some decisions never leave me: the research design, how the main results are defined, the hypotheses and the structure of the paper."
+callout = "Do not start too many sessions at once. When parallel work exhausted my usage quota, I asked the planning session for the prompts and the order to run them, ran them myself, and had it check the results at the end."
 
 [[sections.steps]]
 icon = "clipboard"
-label = "Coordinator"
+label = "Planning session"
 title = "Plan"
-body = "Splits the work into task cards and sends me short briefings. It never does the tasks itself."
+body = "Splits the work into task cards. Each card states the goal and how we will know it is done."
 
 [[sections.steps]]
 icon = "bot"
 label = "Worker sessions"
 title = "Do"
-body = "Each card runs in its own session: the strongest model for judgement, a faster one for mechanical work."
+body = "One card per session. The strongest model handles judgement calls and a cheaper one handles routine work."
 
 [[sections.steps]]
 icon = "shield"
-label = "Fresh reviewer"
+label = "Fresh session"
 title = "Check"
-body = "A new session checks the result against the card's acceptance criteria."
+body = "A new session checks the result against the card. The session that did the work should not be the only one to check it."
 
 [[sections.steps]]
 icon = "board"
 label = "Task board"
 title = "Record"
-body = "One file holds every card's status, so progress survives across sessions and devices."
+body = "One file lists every card and its status. Each new session reads it before starting."
 
 [[sections]]
 id = "quiet-errors"
-nav = "Quiet errors"
-title = "Errors that don't announce themselves"
-lead = "The costliest mistakes in my AI-assisted work showed no error message. Most produced a plausible number that was wrong. The usual fix: the session that wrote something is never the only one that checks it."
-fix_label = "Now"
+nav = "Silent errors"
+title = "Errors that give no warning"
+lead = "The worst mistakes I have made with AI produced no error message, only a number or a file that looked fine. Here is what each one looked like and how to catch it."
+fix_label = "Check"
 
 [[sections.folds]]
-title = "An ID that overflowed"
-fix = "Cast types before building keys, and re-check main results in a separate session."
-body = "Two small-integer columns were multiplied to build a group ID. The product overflowed and quietly merged thousands of groups, moving the main estimate by about a fifth. A separate verification session caught it."
+title = "A log that said it worked"
+fix = "open the output and look at it, whatever the log says."
+body = "A script that turned my manuscript into a Word file skipped the formatting rules it could not match and still reported success. The headings came out in the wrong font."
 
 [[sections.folds]]
-title = "A weight left out"
-fix = "Headline estimates must agree with a second, independent implementation."
-body = "One step of a weighted fixed-effects model ran without the weights. The estimate matched neither valid version of the model, yet it reached early figures before a re-estimate with explicit dummy variables exposed it."
+title = "A sign stored the other way round"
+fix = "compare units and signs with the data documentation."
+body = "Capital spending was stored as negative numbers, as is usual in cash-flow statements. Used without correcting the sign, it turned one of my conclusions the wrong way round."
 
 [[sections.folds]]
-title = "A gap in the wrong place"
-fix = "Plot each variable's coverage over time before using it."
-body = "Salary data were almost empty for the five quarters covering the AI shock and the year after it, so a before-and-after comparison was really comparing two years far apart."
+title = "Groups merged without warning"
+fix = "count unique IDs before and after every merge."
+body = "An ID built from two other columns was not unique, so groups that should have stayed separate were combined. Nothing failed, but the results changed."
 
 [[sections.folds]]
-title = "A sign that flipped a finding"
-fix = "Check units and signs against the data documentation."
-body = "Capital spending was stored as negative numbers, following cash-flow convention. Used as it was, it reversed a conclusion."
-
-[[sections.folds]]
-title = "A build that said it worked"
-fix = "Open the output file and check it, whatever the log says."
-body = "The script that turns a manuscript into a Word file skipped formatting rules that did not match and still reported success. The headings came out in the wrong font."
-
-[[sections.folds]]
-title = "An agent that kept running"
-fix = "Give agents narrow folder paths, and clear leftover processes after long jobs."
-body = "A file search started by an AI helper kept going after its task had ended. For almost three hours it ran at high CPU and swamped the cloud-sync service, which tried to download every file the search touched."
+title = "A helper that kept running"
+fix = "give agents narrow folder paths, and look for leftover processes after long jobs."
+body = "A file search started by an AI helper kept running after its task had ended. It used the processor for hours and made the cloud-sync service download every file it touched."
 
 [[sections]]
-id = "tools"
-nav = "Tools and limits"
-title = "Tools and limits"
+id = "ground-rules"
+nav = "Ground rules"
+title = "Ground rules"
+lead = "However fast AI makes drafting, these are the checks I never skip."
 
 [[sections.cards]]
-title = "Tools"
+title = "In research"
 points = [
-  "Claude Code is my main tool. Each project has a rules file and a memory that syncs across my devices; a few custom skills handle recurring research tasks, and connected tools search the literature and check citations.",
-  "I have tried OpenAI's Codex on side tasks, for comparison.",
-  "In measurement work, one model labels the text and a second model checks the labels.",
+  "The research question, the design and every claim in print are my responsibility.",
+  "Check every reference against its DOI before citing it. Models produce convincing references that do not exist.",
+  "Declare AI use as each journal requires.",
 ]
 
 [[sections.cards]]
-title = "Where I draw the line"
+title = "In code"
 points = [
-  "The research question and the design are mine, and so is every claim in print.",
-  "I check every reference against its DOI before it goes into a paper.",
-  "Public code runs on simulated or public data. Confidential research data stays out of public repositories.",
-  "I declare AI use as each journal requires.",
+  "Public code runs on simulated or public data. Confidential data stays out of public repositories.",
+  "Keep API keys out of Git, and read through every repository before making it public.",
+  "When an LLM labels text for measurement, have a second model check the labels.",
 ]
