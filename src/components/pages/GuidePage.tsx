@@ -18,6 +18,12 @@ import {
     type LucideIcon,
 } from 'lucide-react';
 import { GuidePageConfig, GuideSection } from '@/types/page';
+import CommandLab from '@/components/guide/CommandLab';
+import InterviewDemo from '@/components/guide/InterviewDemo';
+import ReferenceCheck from '@/components/guide/ReferenceCheck';
+import SessionsDiagram from '@/components/guide/SessionsDiagram';
+import SilentErrors from '@/components/guide/SilentErrors';
+import { ImageCard, Pictogram } from '@/components/guide/primitives';
 
 // Icon names used in content/*.toml
 const ICONS: Record<string, LucideIcon> = {
@@ -74,7 +80,7 @@ const eyebrow = 'text-xs font-semibold uppercase tracking-wider';
 function Tiles({ section }: { section: GuideSection }) {
     if (!section.tiles?.length) return null;
     return (
-        <motion.div variants={stagger} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <motion.div variants={stagger} className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {section.tiles.map((tile) => {
                 const Icon = (tile.icon && ICONS[tile.icon]) || Target;
                 return (
@@ -83,11 +89,15 @@ function Tiles({ section }: { section: GuideSection }) {
                         variants={reveal}
                         whileHover={{ y: -3 }}
                         transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                        className={`${card} p-5 flex gap-4 shadow-sm hover:shadow-md transition-shadow`}
+                        className={`${card} p-5 flex flex-row md:flex-col gap-4 shadow-sm hover:shadow-md transition-shadow`}
                     >
-                        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                            <Icon className="h-5 w-5" aria-hidden="true" />
-                        </span>
+                        {tile.picto ? (
+                            <Pictogram name={tile.picto} className="h-12 w-12 flex-shrink-0 text-accent" />
+                        ) : (
+                            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                                <Icon className="h-5 w-5" aria-hidden="true" />
+                            </span>
+                        )}
                         <div className="min-w-0">
                             <h3 className="font-semibold text-primary">{tile.title}</h3>
                             {tile.body && (
@@ -105,32 +115,97 @@ function Examples({ section }: { section: GuideSection }) {
     if (!section.examples?.length) return null;
     return (
         <motion.div variants={reveal}>
-            {section.examples_title && <p className={`${eyebrow} text-neutral-500 mb-2`}>{section.examples_title}</p>}
-            <ul className="divide-y divide-neutral-200 dark:divide-neutral-800 border-y border-neutral-200 dark:border-neutral-800">
+            {section.examples_title && <p className={`${eyebrow} text-neutral-500 mb-3`}>{section.examples_title}</p>}
+            <ul className="grid gap-4 sm:grid-cols-3">
                 {section.examples.map((example) => (
                     <li key={example.label}>
                         <a
                             href={example.href}
                             {...(isInternal(example.href) ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
-                            className="group flex items-start sm:items-center gap-3 sm:gap-6 py-3 px-2 -mx-2 rounded-lg hover:bg-accent/5 transition-colors"
+                            className={`group ${card} block h-full overflow-hidden shadow-sm hover:shadow-md transition-shadow`}
                         >
-                            <span className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-6">
-                                <span className="sm:w-44 flex-shrink-0 font-semibold text-primary group-hover:text-accent transition-colors">
-                                    {example.label}
+                            {example.image && (
+                                <span className="block aspect-[16/10] overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-800">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={example.image}
+                                        alt={example.image_alt || ''}
+                                        loading="lazy"
+                                        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                                    />
                                 </span>
-                                {example.note && (
-                                    <span className="text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed">{example.note}</span>
-                                )}
+                            )}
+                            <span className="block p-4">
+                                <span className="flex items-center justify-between gap-2 font-semibold text-primary group-hover:text-accent transition-colors">
+                                    {example.label}
+                                    <ArrowUpRight className="h-4 w-4 flex-shrink-0 text-neutral-400 group-hover:text-accent transition-colors" aria-hidden="true" />
+                                </span>
+                                {example.note && <span className="mt-1 block text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed">{example.note}</span>}
                             </span>
-                            <ArrowUpRight
-                                className="mt-1 sm:mt-0 h-4 w-4 flex-shrink-0 text-neutral-400 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                                aria-hidden="true"
-                            />
                         </a>
                     </li>
                 ))}
             </ul>
         </motion.div>
+    );
+}
+
+function Gallery({ section }: { section: GuideSection }) {
+    if (!section.gallery?.length) return null;
+    return (
+        <motion.div variants={reveal}>
+            {section.gallery_title && <p className={`${eyebrow} text-neutral-500 mb-3`}>{section.gallery_title}</p>}
+            <div className="grid gap-6 sm:grid-cols-2">
+                {section.gallery.map((image) => (
+                    <ImageCard key={image.src} image={image} />
+                ))}
+            </div>
+        </motion.div>
+    );
+}
+
+function Reading({ section }: { section: GuideSection }) {
+    if (!section.reading?.length) return null;
+    return (
+        <motion.ul variants={stagger} className="grid gap-3 sm:grid-cols-2">
+            {section.reading.map((item) => (
+                <motion.li key={item.href} variants={reveal}>
+                    <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group ${card} block h-full p-4 shadow-sm hover:shadow-md transition-shadow`}
+                    >
+                        <span className={`${eyebrow} text-accent`}>{item.source}</span>
+                        <span className="mt-1 flex items-start justify-between gap-2 font-semibold text-primary group-hover:text-accent transition-colors">
+                            {item.label}
+                            <ArrowUpRight className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-400 group-hover:text-accent transition-colors" aria-hidden="true" />
+                        </span>
+                        <span className="mt-1 block text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed">{item.note}</span>
+                    </a>
+                </motion.li>
+            ))}
+        </motion.ul>
+    );
+}
+
+function Credits({ section }: { section: GuideSection }) {
+    if (!section.credits?.length) return null;
+    return (
+        <motion.details variants={reveal} className="group text-xs text-neutral-500">
+            <summary className="cursor-pointer font-medium hover:text-accent">Image credits and licences</summary>
+            {section.credits_note && <p className="mt-2 max-w-3xl leading-relaxed">{section.credits_note}</p>}
+            <ul className="mt-2 space-y-1 leading-relaxed">
+                {section.credits.map((credit) => (
+                    <li key={credit.what}>
+                        {credit.what}: {credit.who}.{' '}
+                        <a href={credit.href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-accent">
+                            {credit.licence}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </motion.details>
     );
 }
 
@@ -405,6 +480,18 @@ export default function GuidePage({ config }: { config: GuidePageConfig }) {
             />
 
             <motion.header variants={stagger} initial="hidden" animate="show" className="mb-16">
+                {config.banner && (
+                    <motion.div variants={reveal} className="mb-8 overflow-hidden rounded-2xl">
+                        <motion.img
+                            src={config.banner}
+                            alt={config.banner_alt || ''}
+                            initial={{ scale: 1.06 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 1.6, ease }}
+                            className="h-40 w-full object-cover object-[50%_42%] sm:h-56"
+                        />
+                    </motion.div>
+                )}
                 <motion.h1 variants={reveal} className="text-4xl sm:text-5xl font-serif font-bold text-primary">
                     {config.title}
                 </motion.h1>
@@ -466,20 +553,39 @@ export default function GuidePage({ config }: { config: GuidePageConfig }) {
                                 <span className="font-serif text-lg tabular-nums text-accent/70">{String(index + 1).padStart(2, '0')}</span>
                                 <h2 className="text-2xl sm:text-3xl font-serif font-bold text-primary">{section.title}</h2>
                             </div>
-                            {section.lead && (
-                                <div className="mt-3 max-w-2xl text-neutral-600 dark:text-neutral-500 leading-relaxed">
-                                    <Md>{section.lead}</Md>
-                                </div>
-                            )}
+                            <div className="mt-3 flex items-center justify-between gap-8">
+                                {section.lead && (
+                                    <div className="max-w-2xl text-neutral-600 dark:text-neutral-500 leading-relaxed">
+                                        <Md>{section.lead}</Md>
+                                    </div>
+                                )}
+                                {section.illustration && (
+                                    /* eslint-disable-next-line @next/next/no-img-element */
+                                    <img
+                                        src={section.illustration}
+                                        alt={section.illustration_alt || ''}
+                                        loading="lazy"
+                                        className="hidden sm:block h-32 w-[171px] flex-shrink-0 object-contain dark:invert dark:opacity-80"
+                                    />
+                                )}
+                            </div>
                         </motion.div>
                         <div className="space-y-8">
+                            {section.demo === 'interview' && <InterviewDemo />}
+                            {section.demo === 'commands' && <CommandLab folds={section.folds || []} fixLabel={section.fix_label} />}
+                            {section.demo === 'sessions' && <SessionsDiagram />}
+                            {section.demo === 'errors' && <SilentErrors folds={section.folds || []} fixLabel={section.fix_label} />}
+                            {section.demo === 'rules' && <ReferenceCheck />}
                             <Tiles section={section} />
                             <Examples section={section} />
                             <Timeline section={section} />
                             {section.steps_style === 'flow' ? <Flow section={section} /> : <Pills section={section} />}
                             <Levels section={section} />
-                            <Folds section={section} />
+                            {!section.demo && <Folds section={section} />}
                             <Cards section={section} />
+                            <Gallery section={section} />
+                            <Reading section={section} />
+                            <Credits section={section} />
                             {section.callout && (
                                 <motion.div
                                     variants={reveal}

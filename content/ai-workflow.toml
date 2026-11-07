@@ -1,6 +1,8 @@
 type = "guide"
 title = "How I work with AI"
 description = "Claude Code is my main tool for research and for building software. These are the habits that have saved me the most time, written so you can try them yourself."
+banner = "/images/ai-workflow/desk.jpg"
+banner_alt = "A laptop, a mug and a notebook on a wooden table"
 
 [[links]]
 label = "Templates on GitHub"
@@ -8,7 +10,8 @@ href = "https://github.com/jackyyangjq/ai-research-workflow"
 
 # In each section, plain keys must come before any [[sections.x]] header,
 # or TOML files them under the wrong table.
-# Icons: messages, eye, target, key, clipboard, bot, shield, board.
+# Icons: messages, eye, target, key, clipboard, bot, shield, board. picto = a Carbon pictogram in public/images/ai-workflow.
+# demo = an animated component in src/components/guide.
 
 [[sections]]
 id = "questions-first"
@@ -16,128 +19,195 @@ nav = "Questions first"
 title = "Let it ask the questions first"
 lead = "Most of the time I lose with an AI agent comes from letting it start too early. Before any code or text is written, have it interview you, then choose from a short list of options."
 examples_title = "Small tools I built this way"
+demo = "interview"
+illustration = "/images/ai-workflow/doodle-reading.svg"
 
 [[sections.tiles]]
-icon = "messages"
+picto = "carbon-question--and--answer"
 title = "Ask to be interviewed"
-body = "Start with: “Don't write anything yet. First ask me the questions you need answered.” Your answers become the spec."
+body = "Start with: “Don't write anything yet. First ask me the questions you need answered.” Save the answers in a spec file, then build in a new session."
 
 [[sections.tiles]]
-icon = "clipboard"
+picto = "carbon-list--checkbox"
 title = "Pick from a list"
-body = "Ask for three ways to do it and what each one costs. Choosing from a list is quicker than correcting a draft you never wanted."
+body = "Ask for three ways to do it and what each one costs. Choosing from a list is quicker than correcting a draft."
 
 [[sections.tiles]]
-icon = "eye"
+picto = "carbon-visual--inspection"
 title = "Look at the result"
-body = "After each change, run the app or open the table. Code that reads well can still give the wrong answer."
+body = "After each change, run the app or open the table, because code that reads well can still give a wrong answer."
 
 [[sections.examples]]
 label = "Calorie tracker"
 href = "https://jackyyangjq.github.io/caltrk/"
 note = "A web app that reads food photos with a vision model."
+image = "/images/ai-workflow/caltrk.jpg"
+image_alt = "The calorie tracker's home screen, with a daily budget of 2,000 kcal"
 
 [[sections.examples]]
-label = "Finfluencer digest"
-href = "https://github.com/jackyyangjq/finfluencer-digest"
-note = "Summarises the stock calls made on finance channels each morning."
+label = "Call tracker"
+href = "https://github.com/jackyyangjq/catfolio"
+note = "Scores stock calls against later prices, inside an open-source portfolio dashboard."
+image = "/images/projects/call-tracker.webp"
+image_alt = "A screen comparing sources of stock calls, using fictional demo data"
 
 [[sections.examples]]
 label = "Filings Q&A agent"
 href = "https://github.com/jackyyangjq/filings-qa-agent"
 note = "Answers questions about SEC filings and cites a source for every sentence."
+image = "/images/ai-workflow/filings-qa.svg"
+image_alt = "A sketch of a question about a company's filing, answered with a source after each sentence"
 
 [[sections]]
 id = "commands"
 nav = "Four commands"
 title = "Four commands worth learning"
-lead = "Beyond ordinary chat, these are the commands I use most. All four work in the terminal, and /btw, /doctor and /effort also work in the desktop app. Click one to see how to use it."
+lead = "Beyond ordinary chat, these are the commands I use most. All four work in the terminal, and /btw, /doctor and /effort also work in the desktop app. Choose one to watch it run."
 fix_label = "Use it when"
+demo = "commands"
 
 [[sections.folds]]
 title = "/btw"
+demo = "btw"
 fix = "you want to ask something quick while Claude is still working."
-body = "Type /btw and your question. It can see the conversation so far, answers in a small window, and the main task keeps running. The question is not added to the conversation, so it does not affect the main task. It cannot open files or run commands, so ask about what has already happened, for example “which file did you just change, and why?” In the desktop app it is called side chat, and on a Mac you open it with Cmd+;."
+body = "Type /btw and your question. It can see the conversation so far and answers in a small window while the main task continues. The question is not added to the conversation. It answers from what it already knows, so ask about what has already happened, for example “which file did you just change, and why?” If the answer needs a search, press f to hand it to a background agent. In the desktop app it is called side chat, and on a Mac you open it with Cmd+;."
+caution = "If a permission prompt appears while the window is open, look before you press a key. Esc can reject the edit."
+more_label = "Anthropic's documentation on side questions"
+more_href = "https://code.claude.com/docs/en/interactive-mode#side-questions-with-%2Fbtw"
 
 [[sections.folds]]
 title = "/doctor"
+demo = "doctor"
+caution = "Its first suggestion may be to fix everything at once. Review the items one at a time."
+more_label = "Anthropic's list of commands"
+more_href = "https://code.claude.com/docs/en/commands"
 fix = "Claude starts ignoring one of your rules, or you have installed many plugins and skills."
 body = "It checks your installation, unused extensions and your rules files, and reports before changing anything. Newer versions add /doctor prompt-audit, which looks for instructions that contradict each other or are out of date. The first time I ran it, it found 17 problems, several of them pairs of rules that contradicted each other. Read the report, decide which of the conflicting rules to keep, and only then let it make the changes."
 
 [[sections.folds]]
 title = "/effort"
+demo = "effort"
+caution = "Max lasts only for the current session, and the app warns that it can overthink. Keep it for the hardest tasks."
+more_label = "Anthropic: Spending your effort"
+more_href = "https://claude.dev/blog/spending-your-effort/"
 fix = "the work moves from planning to checking."
-body = "It sets how hard the model thinks before it answers. My rule is low effort while deciding what to do, and high effort when the result has to be right, such as debugging an estimate that looks wrong or reviewing code that handles passwords and keys. If the plan itself is wrong, more effort will not save it, so go back to the questions."
+body = "It sets how much work the model does before it answers, including how much it reads and checks. My rule is low effort while deciding what to do, and high effort or above when the result has to be right, such as tracing why two runs of a model disagree or reviewing code that handles passwords and keys. If the plan is wrong, more effort will not correct it, so return to the questions."
 
 [[sections.folds]]
 title = "/rewind"
-fix = "Claude has gone in the wrong direction and you want to go back."
-body = "With the prompt box empty, press Esc twice, or type /rewind, and choose an earlier message. You can restore the code, the conversation, or both. It does not undo changes to files that only shell commands touched, so keep using Git for anything that matters."
+demo = "rewind"
+caution = "Most edits made by subagents are not restored either, so commit before you split work across agents."
+more_label = "Anthropic: Session management and 1M context"
+more_href = "https://claude.com/blog/using-claude-code-session-management-and-1m-context"
+fix = "Claude has taken the wrong direction and you want to return to an earlier point."
+body = "With the prompt box empty, press Esc twice, or type /rewind, and choose an earlier message. You can restore the code, the conversation, or both. Returning to an earlier point is often better than correcting, because the failed attempt is removed from the conversation. Rewinding does not undo changes to files that only shell commands touched, so keep using Git for anything that matters."
 
 [[sections]]
 id = "sessions"
 nav = "One paper, many sessions"
 title = "One paper, many sessions"
-lead = "A paper takes months, which is far too long for one chat. I organise it the way a small team would: one session plans, other sessions do the work, and a fresh one checks it. Progress is kept in files, so nothing is lost when a session ends."
-steps_style = "flow"
+lead = "A paper takes months, which is too long for one chat. I organise it the way a small team would: one session plans, other sessions do the work, and a fresh one checks it. Progress is kept in files, so nothing is lost when a session ends."
+demo = "sessions"
+illustration = "/images/ai-workflow/peeps-team.svg"
+gallery_title = "How others draw the same idea"
 callout = "Do not start too many sessions at once. When parallel work exhausted my usage quota, I asked the planning session for the prompts and the order to run them, ran them myself, and had it check the results at the end."
 
-[[sections.steps]]
-icon = "clipboard"
-label = "Planning session"
-title = "Plan"
-body = "Splits the work into task cards. Each card states the goal and how we will know it is done."
+[[sections.gallery]]
+src = "/images/ai-workflow/council-loop.svg"
+width = 900
+height = 610
+alt = "Diagram: a shared brief goes to independent agents, an adversarial check and a synthesis, then to your judgement and a handoff file"
+caption = "An economist's version, for academic work. Independent agents report, you judge, and a handoff file starts the next session."
+credit = "Chris Blattman and contributors, MIT"
+credit_href = "https://github.com/chrisblattman/claudeblattman"
 
-[[sections.steps]]
-icon = "bot"
-label = "Worker sessions"
-title = "Do"
-body = "One card per session. The strongest model handles judgement calls and a cheaper one handles routine work."
+[[sections.gallery]]
+src = "/images/ai-workflow/plan-big-execute-small.png"
+width = 3520
+height = 1800
+alt = "Diagram: one orchestrator on a strong model directs several workers on a cheaper model"
+caption = "Plan with a strong model and execute with cheaper ones, the same split I use for worker sessions."
+credit = "Diagram by Anthropic, claude-cookbooks, MIT"
+credit_href = "https://github.com/anthropics/claude-cookbooks/blob/main/managed_agents/CMA_plan_big_execute_small.ipynb"
 
-[[sections.steps]]
-icon = "shield"
-label = "Fresh session"
-title = "Check"
-body = "A new session checks the result against the card. The session that did the work should not be the only one to check it."
+[[sections.gallery]]
+src = "/images/ai-workflow/backlog-board.jpeg"
+width = 1280
+height = 632
+alt = "A Kanban board with To Do, In Progress and Done columns of task cards"
+caption = "A task board kept in plain files. This one is an open-source tool, Backlog.md. A single Markdown table does the same job."
+credit = "Backlog.md by Alex Gavrilescu and contributors, MIT"
+credit_href = "https://github.com/MrLesk/Backlog.md"
 
-[[sections.steps]]
-icon = "board"
-label = "Task board"
-title = "Record"
-body = "One file lists every card and its status. Each new session reads it before starting."
+[[sections.gallery]]
+src = "/images/ai-workflow/backlog-demo.gif"
+width = 1280
+height = 720
+poster = "/images/ai-workflow/backlog-demo-poster.jpg"
+alt = "A terminal recording of the Backlog.md task board being used"
+caption = "The same tool in a terminal. Press play to see tasks being searched, filtered and opened."
+credit = "Backlog.md by Alex Gavrilescu and contributors, MIT"
+credit_href = "https://github.com/MrLesk/Backlog.md"
 
 [[sections]]
 id = "quiet-errors"
 nav = "Silent errors"
 title = "Errors that give no warning"
 lead = "The worst mistakes I have made with AI produced no error message, only a number or a file that looked fine. Here is what each one looked like and how to catch it."
-fix_label = "Check"
+fix_label = "What to do"
+demo = "errors"
+illustration = "/images/ai-workflow/doodle-clumsy.svg"
+gallery_title = "The same problem in published examples"
 
 [[sections.folds]]
 title = "A log that said it worked"
+demo = "log"
 fix = "open the output and look at it, whatever the log says."
-body = "A script that turned my manuscript into a Word file skipped the formatting rules it could not match and still reported success. The headings came out in the wrong font."
+body = "A script that turned my manuscript into a Word file skipped the formatting rules it could not match and still reported success. The headings appeared in the wrong font."
 
 [[sections.folds]]
 title = "A sign stored the other way round"
+demo = "sign"
 fix = "compare units and signs with the data documentation."
-body = "Capital spending was stored as negative numbers, as is usual in cash-flow statements. Used without correcting the sign, it turned one of my conclusions the wrong way round."
+body = "Capital spending was stored as negative numbers, as is usual in cash-flow statements. Used without correcting the sign, it reversed one of my conclusions."
 
 [[sections.folds]]
 title = "Groups merged without warning"
+demo = "merge"
 fix = "count unique IDs before and after every merge."
 body = "An ID built from two other columns was not unique, so groups that should have stayed separate were combined. Nothing failed, but the results changed."
 
 [[sections.folds]]
 title = "A helper that kept running"
+demo = "process"
 fix = "give agents narrow folder paths, and look for leftover processes after long jobs."
-body = "A file search started by an AI helper kept running after its task had ended. It used the processor for hours and made the cloud-sync service download every file it touched."
+body = "A file search started by an AI helper continued to run after its task had ended. It used the processor for hours and made the cloud-sync service download every file it touched."
+
+[[sections.gallery]]
+src = "/images/ai-workflow/zoom-demo.gif"
+width = 860
+height = 679
+poster = "/images/ai-workflow/zoom-demo-poster.jpg"
+alt = "An animation in which a model answers a question about a chart wrongly, then zooms in and corrects itself. The chart uses synthetic data."
+caption = "A model reads a chart and gives a confident, wrong answer. Looking closer corrects it."
+credit = "Animation by Anthropic, claude-cookbooks, MIT"
+credit_href = "https://github.com/anthropics/claude-cookbooks/tree/main/images/crop_tool"
+
+[[sections.gallery]]
+src = "/images/ai-workflow/report-not-proven.jpg"
+width = 1553
+height = 460
+alt = "A report banner marking a software module as not proven even though its outputs match"
+caption = "This report does not pass a module even though all its test outputs match, because the proof step has not succeeded."
+credit = "Screenshot by Anthropic, code-modernization plugin, Apache-2.0"
+credit_href = "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-modernization"
 
 [[sections]]
 id = "ground-rules"
 nav = "Ground rules"
 title = "Ground rules"
-lead = "However fast AI makes drafting, these are the checks I never skip."
+lead = "These rules apply however fast AI makes the drafting."
+demo = "rules"
 
 [[sections.cards]]
 title = "In research"
@@ -151,6 +221,116 @@ points = [
 title = "In code"
 points = [
   "Public code runs on simulated or public data. Confidential data stays out of public repositories.",
-  "Keep API keys out of Git, and read through every repository before making it public.",
-  "When an LLM labels text for measurement, have a second model check the labels.",
+  "Keep API keys out of Git, and read every repository before making it public.",
+  "When a language model labels text for measurement, have a second model check the labels.",
 ]
+
+[[sections]]
+id = "further-reading"
+nav = "Further reading"
+title = "Further reading"
+lead = "These guides cover the same topics in more depth."
+note = "Claude Code is a product of Anthropic. Anthropic has not reviewed or endorsed this page."
+credits_note = "All other animations and diagrams on this page are my own. The /btw, /effort and /rewind screens are rebuilt from recordings of the real Claude Code interface, with example wording of my own. The /doctor, interview and other terminal screens are illustrations. None of them is a record of what the model said."
+
+[[sections.reading]]
+source = "Anthropic"
+label = "Session management and 1M context"
+href = "https://claude.com/blog/using-claude-code-session-management-and-1m-context"
+note = "When to rewind, compact, start afresh or use a subagent, with a clear diagram."
+
+[[sections.reading]]
+source = "Anthropic"
+label = "Spending your effort"
+href = "https://claude.dev/blog/spending-your-effort/"
+note = "The loop of being interviewed first, implementing at low effort and verifying at high effort."
+
+[[sections.reading]]
+source = "Anthropic"
+label = "Model and effort level"
+href = "https://claude.com/blog/claude-model-and-effort-level-in-claude-code"
+note = "How to decide between a stronger model and more effort."
+
+[[sections.reading]]
+source = "Anthropic"
+label = "Explore the context window"
+href = "https://code.claude.com/docs/en/context-window"
+note = "An interactive simulation of what fills the context during a session."
+
+[[sections.reading]]
+source = "Chris Blattman"
+label = "AI for professionals who don't code"
+href = "https://github.com/chrisblattman/claudeblattman"
+note = "A University of Chicago economist's guides, written partly for academics, with skills and diagrams you can reuse."
+
+[[sections.reading]]
+source = "Benjamin Lira"
+label = "Claude Code for researchers"
+href = "https://github.com/lirabenjamin/claude-code-for-researchers"
+note = "Slides and skills from a Wharton demo, with a good picture of how memory files fit together."
+
+[[sections.reading]]
+source = "Alexander Quispe"
+label = "Claude Code research course"
+href = "https://github.com/alexanderquispe/claude-code-research"
+note = "Course materials with figures of the plan workflow and the memory stack."
+
+[[sections.reading]]
+source = "YK Sugi"
+label = "Claude Code tips"
+href = "https://github.com/ykdojo/claude-code-tips"
+note = "A long list of practical tips, including sketches of working with Git worktrees."
+
+[[sections.credits]]
+what = "Council loop diagram"
+who = "Chris Blattman and contributors"
+licence = "MIT"
+href = "https://github.com/chrisblattman/claudeblattman"
+
+[[sections.credits]]
+what = "Plan big, execute small diagram and chart zoom animation"
+who = "Anthropic, claude-cookbooks"
+licence = "MIT"
+href = "https://github.com/anthropics/claude-cookbooks/blob/main/LICENSE"
+
+[[sections.credits]]
+what = "Not-proven report screenshot"
+who = "Anthropic, claude-plugins-official"
+licence = "Apache-2.0"
+href = "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-modernization"
+
+[[sections.credits]]
+what = "Task board screenshot and terminal recording"
+who = "Alex Gavrilescu and Backlog.md contributors"
+licence = "MIT"
+href = "https://github.com/MrLesk/Backlog.md/blob/main/LICENSE"
+
+[[sections.credits]]
+what = "Line pictograms, recoloured"
+who = "IBM Carbon Design System"
+licence = "Apache-2.0"
+href = "https://github.com/carbon-design-system/carbon/tree/main/packages/pictograms"
+
+[[sections.credits]]
+what = "Sketches of a reader and a clumsy person"
+who = "Pablo Stanley, Open Doodles"
+licence = "CC0"
+href = "https://www.opendoodles.com/"
+
+[[sections.credits]]
+what = "Sketch of a group"
+who = "Pablo Stanley, Open Peeps"
+licence = "CC0"
+href = "https://www.openpeeps.com/"
+
+[[sections.credits]]
+what = "Photo of a desk"
+who = "Andrew Neel"
+licence = "Unsplash licence"
+href = "https://unsplash.com/photos/macbook-pro-white-ceramic-mugand-black-smartphone-on-table-cckf4TsHAuw"
+
+[[sections.credits]]
+what = "Full copyright notices and licence texts"
+who = "All third-party images above"
+licence = "Notices file"
+href = "/THIRD_PARTY_NOTICES.txt"

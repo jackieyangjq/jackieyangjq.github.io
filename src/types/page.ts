@@ -93,6 +93,7 @@ export interface GuideTile {
     title: string;
     body?: string;
     icon?: string;
+    picto?: string;
 }
 
 export interface GuideStage {
@@ -111,6 +112,10 @@ export interface GuideFoldItem {
     title: string;
     fix: string;
     body: string;
+    demo?: string;
+    caution?: string;
+    more_label?: string;
+    more_href?: string;
 }
 
 export interface GuideCard {
@@ -123,6 +128,33 @@ export interface GuideExample {
     label: string;
     href: string;
     note?: string;
+    image?: string;
+    image_alt?: string;
+}
+
+export interface GuideImage {
+    src: string;
+    alt: string;
+    caption: string;
+    credit?: string;
+    credit_href?: string;
+    poster?: string;
+    width?: number;
+    height?: number;
+}
+
+export interface GuideReading {
+    label: string;
+    href: string;
+    source: string;
+    note: string;
+}
+
+export interface GuideCredit {
+    what: string;
+    who: string;
+    licence: string;
+    href: string;
 }
 
 export interface GuideSection {
@@ -145,10 +177,20 @@ export interface GuideSection {
     fix_label?: string;
     folds?: GuideFoldItem[];
     cards?: GuideCard[];
+    demo?: 'interview' | 'commands' | 'sessions' | 'errors' | 'rules';
+    illustration?: string;
+    illustration_alt?: string;
+    gallery_title?: string;
+    gallery?: GuideImage[];
+    reading?: GuideReading[];
+    credits?: GuideCredit[];
+    credits_note?: string;
 }
 
 export interface GuidePageConfig extends BasePageConfig {
     type: 'guide';
     links?: LinkItem[];
+    banner?: string;
+    banner_alt?: string;
     sections: GuideSection[];
 }
